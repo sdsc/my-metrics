@@ -4,29 +4,14 @@
 <?php 
 $localusername=$_SERVER['ADUSERNAME']; 
 
-	echo "hello $localusername!";
+   echo "hello $localusername!";
 
-
-
-   class MyDB extends SQLite3
-   {
-      function __construct()
-      {
-         $this->open('my-metrics.db');
-      }
-   }
-   $db = new MyDB();
-   if(!$db){
-      echo $db->lastErrorMsg();
-   } else {
-      echo "Opened database successfully\n";
-   }
-
+   $db = new SQLite3('database/my-metrics.db') or die('Unable to open database');
    $sql =<<<EOF
-      SELECT * from users;
+      SELECT * from users where adusername = '$localusername';
 EOF;
 
-   $ret = $db->query($sql);
+   $ret = $db->query($sql) or die('Select Failed');
    while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
       echo "ID = ". $row['userid'] . "\n";
       echo "NAME = ". $row['adusername'] ."\n";
