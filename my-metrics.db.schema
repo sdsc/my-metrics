@@ -1,4 +1,3 @@
-test
 CREATE TABLE usermap (metricid longint not null, userid int not null);
 CREATE TABLE users(userid integer primary key asc, adusername varchar not null unique, permission varchar not null);
 CREATE TABLE metrics (metricid longint not null unique, graphitename varchar not null, displayname varchar);
